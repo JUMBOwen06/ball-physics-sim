@@ -1,15 +1,20 @@
 import pygame
 import math
+import random
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 1280, 720
 FPS = 60
+
+####
+random_amount = 3000
+gravity = 1
+####
+
 
 pygame.init()
 font = pygame.font.SysFont("Arial", 24)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
-
-gravity = 0.5
 class Ball:
     def __init__(self, position_x, position_y, radius, velocity_x, velocity_y, density=1):
         self.position_x = position_x
@@ -68,14 +73,17 @@ class Ball:
                 self.velocity_y *= -0.8
 
 
+def make_random_ball():
+    radius = random.randint(10, 40)
+    return Ball(
+        random.randint(radius, SCREEN_WIDTH - radius),
+        random.randint(radius, SCREEN_HEIGHT // 2),
+        radius,
+        random.uniform(-8, 8),
+        random.uniform(-5, 5),
+    )
 
-ball1 = Ball((SCREEN_WIDTH/2), (SCREEN_HEIGHT/2), 40, 10, 3)
-ball2 = Ball(SCREEN_WIDTH/4, (SCREEN_HEIGHT/4), 20, 3, 1)
-ball3 = Ball(SCREEN_WIDTH/3, (SCREEN_HEIGHT/9), 35, 10, -2)
-ball4 = Ball(SCREEN_WIDTH/2.5, (SCREEN_HEIGHT/1.2), 15, 12, -5)
-
-balls = [ball1, ball2, ball3, ball4]
-amount = len(balls)
+balls = [make_random_ball() for i in range(random_amount)]
 
 def check_ball_collision(balls, restitution=0.9):
     for i in range(len(balls)):
@@ -120,13 +128,20 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mx, my = event.pos
+            radius = random.randint(10, 80)
+            balls.append(Ball(mx, my, radius, random.uniform(-5, 5), 0))
 
+    amount = len(balls)
     screen.fill("blue")
     text1 = font.render(f"Gravity: {gravity}", True, (255, 255, 255))
     text2 = font.render(f"Amount of balls: {amount}", True, (255, 255, 255))
     
     screen.blit(text1, (10,10))
     screen.blit(text2, (10, 34))
+
+
 
     for ball in balls:
         ball.gravity()
