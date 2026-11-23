@@ -8,9 +8,6 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
-
-def gravity():
-    gravity = -9.8
 class Ball:
     def __init__(self, position_x, position_y, radius, mass, velocity_x, velocity_y, ):
         self.position_x = position_x
@@ -31,8 +28,19 @@ class Ball:
             self.radius
         )
 
+    def gravity(self):
+        self.velocity_y += 9.8
+
+    def move(self):
+        self.position_x += self.velocity_x
+        self.position_y += self.velocity_y
+
+
+
 
 mainBall = Ball((SCREEN_WIDTH/2), (SCREEN_HEIGHT/2), 40, 5, 0, 0)
+secondball = Ball(SCREEN_WIDTH/4, (SCREEN_HEIGHT/4), 20, 5, 0, 0)
+balls = [mainBall, secondball]
 
 running = True
 while running:
@@ -42,7 +50,10 @@ while running:
 
     screen.fill("blue")
 
-    mainBall.draw(screen)
+    for circle in balls:
+        circle.gravity()
+        circle.move()
+        circle.draw(screen)
 
     pygame.display.flip()
     clock.tick(FPS)
