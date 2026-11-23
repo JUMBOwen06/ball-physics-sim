@@ -5,9 +5,11 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 1280, 720
 FPS = 60
 
 pygame.init()
+font = pygame.font.SysFont("Arial", 24)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
+gravity = 1.0
 class Ball:
     def __init__(self, position_x, position_y, radius, mass, velocity_x, velocity_y, ):
         self.position_x = position_x
@@ -29,7 +31,7 @@ class Ball:
         )
 
     def gravity(self):
-        self.velocity_y += 1
+        self.velocity_y += gravity
 
     def move(self):
         self.position_x += self.velocity_x
@@ -58,12 +60,23 @@ class Ball:
             if self.velocity_y > 0:
                 self.velocity_y *= -0.8
 
-        
 
 
-mainBall = Ball((SCREEN_WIDTH/2), (SCREEN_HEIGHT/2), 40, 5, 10, 3)
-secondball = Ball(SCREEN_WIDTH/4, (SCREEN_HEIGHT/4), 20, 5, 3, 1)
-balls = [mainBall, secondball]
+ball1 = Ball((SCREEN_WIDTH/2), (SCREEN_HEIGHT/2), 40, 5, 10, 3)
+ball2 = Ball(SCREEN_WIDTH/4, (SCREEN_HEIGHT/4), 20, 2, 3, 1)
+ball3 = Ball(SCREEN_WIDTH/3, (SCREEN_HEIGHT/9), 35, 10, 8, -2)
+ball4 = Ball(SCREEN_WIDTH/2.5, (SCREEN_HEIGHT/1.2), 15, 7, 12, -5)
+
+balls = [ball1, ball2, ball3, ball4]
+amount = len(balls)
+
+def check_ball_collision(mainBall, secondball):
+    pass
+# Horizontal distance
+    
+# Vertical Distance
+# Total distance
+# Sum of radius
 
 running = True
 while running:
@@ -72,8 +85,11 @@ while running:
             running = False
 
     screen.fill("blue")
-
-
+    text1 = font.render(f"Gravity: {gravity}", True, (255, 255, 255))
+    text2 = font.render(f"Amount of balls: {amount}", True, (255, 255, 255))
+    
+    screen.blit(text1, (10,10))
+    screen.blit(text2, (10, 34))
 
     for circle in balls:
         circle.check_boundary_collision()
