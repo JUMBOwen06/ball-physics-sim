@@ -69,11 +69,11 @@ The pair checks per frame are shown in the HUD, so you can see the difference di
 
 ## Benchmarks
 
-Measured on <!-- your CPU, e.g. "Ryzen 5 5600X" --> at 60 FPS target, by pressing S to add balls and G to toggle the collision method.
+Measured on **Intel Core 7 150U** at 60 FPS target, by pressing S to add balls and G to toggle the collision method.
 
-- **100 balls:** brute force <!-- FPS --> FPS, spatial grid <!-- FPS --> FPS
-- **300 balls:** brute force <!-- FPS --> FPS, spatial grid <!-- FPS --> FPS
-- **600 balls:** brute force <!-- FPS --> FPS, spatial grid <!-- FPS --> FPS
+- **100 balls:** brute force 60 FPS, spatial grid 60 FPS
+- **300 balls:** brute force 58 FPS, spatial grid 60 FPS
+- **600 balls:** brute force 20 FPS, spatial grid 60 FPS
 
 ## What I learned
 
